@@ -19,7 +19,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.xml.internal.ws.client.ClientTransportException;
+//import com.sun.xml.internal.ws.client.ClientTransportException;
 
 import br.com.sms.modelos.SMS;
 import br.com.sms.repositorios.SMSRepositorio;
@@ -31,6 +31,12 @@ public class ServicoSMSController {
 
 	@Autowired
 	private SMSRepositorio smsRepositorio;
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String im_here() {
+
+		return "Servico SMS - L I G A D O";
+	}
 
 	@RequestMapping(value = "enviados", method = RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Collection<SMS> enviados() {
@@ -53,7 +59,7 @@ public class ServicoSMSController {
 		smsRepositorio.delete(id);
 	}
 
-	/*
+	/**
 	 * TODO AppWebConfiguration CORS produces = {"application/xml",
 	 * "application/json"} consumes ={"application/xml", "application/json"}
 	 */
@@ -65,7 +71,7 @@ public class ServicoSMSController {
 			/**
 			 * TODO
 			 * Tratar a questao da data no sentido de agendamento.
-			 * Olhar @Scheduled(fixedRate = 5000) por exemplo para definir periodicidade.
+			 * Olhar (fixedRate = 5000) por exemplo para definir periodicidade.
 			 * Por exemplo 5s.
 			 * Consumir de uma Lista de SMS pendentes de envio e comparar a data corrente com a data de agendamento.
 			 * Por enquanto estou apenas travando o cenario de agendamento não permitindo uma data futura.
@@ -93,12 +99,12 @@ public class ServicoSMSController {
 			sms.setStatus(e.getResponseBodyAsString());
 			return new ResponseEntity<SMS>(sms, e.getStatusCode());
 
-		} catch (ClientTransportException e) {
+		} /*catch (ClientTransportException e) {
 			e.printStackTrace();
 			sms.setStatus("Erro de transporte");
 			return new ResponseEntity<SMS>(sms, HttpStatus.INTERNAL_SERVER_ERROR);
 
-		} catch (ResourceAccessException e) {
+		}*/ catch (ResourceAccessException e) {
 			sms.setStatus("Operadora Movel Desligada");
 			return new ResponseEntity<SMS>(sms, HttpStatus.INTERNAL_SERVER_ERROR);
 
