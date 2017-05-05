@@ -51,7 +51,5 @@ responses:
 	7- Por fim clique na classe Main e execute em 'Run As' como Java Application.
 	8- Para certificar que o serviço esta no ar acesse http://localhost:8080 e verifique se exibe "Servico SMS - L I G A D O" 
 
-## 3: Testes unitários ## 
 	
-	1-É necessário estar 
 
